@@ -7,7 +7,6 @@ import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
-import com.facebook.react.bridge.Callback;
 
 public class RNSmartconnectionModule extends ReactContextBaseJavaModule {
 
@@ -35,7 +34,7 @@ public class RNSmartconnectionModule extends ReactContextBaseJavaModule {
       SmartConfigHelper.setSendInterval(oldInterval, newInterval);
       promise.resolve(System.currentTimeMillis());
     } catch (Exception e) {
-      promise.reject(e.getCause());
+      promise.reject(e);
     }
   }
 
@@ -47,16 +46,18 @@ public class RNSmartconnectionModule extends ReactContextBaseJavaModule {
       promise.resolve(System.currentTimeMillis());
     } catch (Exception e) {
       e.printStackTrace();
-      promise.reject(e.getCause());
+      promise.reject(e);
     }
   }
 
   @ReactMethod
-  public void stopConnection() {
+  public void stopConnection(Promise promise) {
     try {
       SmartConfigHelper.stopConnection();
+      promise.resolve(System.currentTimeMillis());
     } catch (Exception e) {
       e.printStackTrace();
+      promise.reject(e);
     }
 
   }
