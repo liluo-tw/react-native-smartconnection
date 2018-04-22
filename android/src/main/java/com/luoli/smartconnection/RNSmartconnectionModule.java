@@ -32,7 +32,7 @@ public class RNSmartconnectionModule extends ReactContextBaseJavaModule {
       Log.i("Smartconfig", "libVersion: " + libVersion + ", protoVersion: " + protoVersion);
       SmartConfigHelper.initConnection(key, target, version);
       SmartConfigHelper.setSendInterval(oldInterval, newInterval);
-      promise.resolve(System.currentTimeMillis());
+      promise.resolve(libVersion);
     } catch (Exception e) {
       promise.reject(e);
     }
@@ -43,7 +43,7 @@ public class RNSmartconnectionModule extends ReactContextBaseJavaModule {
                                 Promise promise) {
     try {
       SmartConfigHelper.startConnection(ssid, ssidpwd, authcode);
-      promise.resolve(System.currentTimeMillis());
+      promise.resolve("");
     } catch (Exception e) {
       e.printStackTrace();
       promise.reject(e);
@@ -54,7 +54,7 @@ public class RNSmartconnectionModule extends ReactContextBaseJavaModule {
   public void stopConnection(Promise promise) {
     try {
       SmartConfigHelper.stopConnection();
-      promise.resolve(System.currentTimeMillis());
+      promise.resolve("");
     } catch (Exception e) {
       e.printStackTrace();
       promise.reject(e);
