@@ -1,13 +1,16 @@
 {
   "name": "react-native-smartconnection",
-  "version": "0.0.4",
-  "description": "",
+  "version": "0.0.5",
+  "description": "SmartConfig for mtk chips. With LinkIt_SDK_V4.6.1_public sdk android added.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "react-native"
+    "react-native",
+    "smartconfig",
+    "mtk",
+    "elian"
   ],
   "author": {
     "name": "luoli",
