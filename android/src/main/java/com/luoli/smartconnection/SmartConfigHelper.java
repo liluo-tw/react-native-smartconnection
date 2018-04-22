@@ -1,5 +1,7 @@
 package com.luoli.smartconnection;
 
+import com.mediatek.demo.smartconnection.JniLoader;
+
 public class SmartConfigHelper {
 
     private static JniLoader jniLoader;

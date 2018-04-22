@@ -1,6 +1,7 @@
-package com.luoli.smartconnection;
+package com.mediatek.demo.smartconnection;
 
 public class JniLoader {
+
     
     public static final int ERROR_CODE_OK                     = 0;
     public static final int ERROR_CODE_NOT_INITINED           = -1;
