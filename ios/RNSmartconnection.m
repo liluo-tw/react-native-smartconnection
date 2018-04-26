@@ -9,7 +9,7 @@
     return dispatch_get_main_queue();
 }
 
-RCT_EXPORT_MODULE(@"RNSmartconnection");
+RCT_EXPORT_MODULE(RNSmartconnection);
 
 RCT_EXPORT_METHOD(startConnection: (NSString *)key
                  target: (NSString *)target
@@ -41,4 +41,3 @@ RCT_EXPORT_METHOD(stopConnection: (RCTPromiseResolveBlock)resolve
 }
 
 @end
-  
