@@ -29,7 +29,6 @@ RCT_REMAP_METHOD(startConnection,
         RCTLogInfo(@"Smartconfig libVersion: %d protoVersion: %d)", libV, proV);
         [_helper initElian:(int)version];
         [_helper setIntervalElian:oldInterval to:newInterval];
-        [_helper startElian];
         resolve([@(libV) stringValue]);
     }
     @catch (NSException *exception) {
@@ -55,6 +54,7 @@ RCT_REMAP_METHOD(sendConfiguration,
         [_helper setElianSSID:ssid];
         [_helper setElianPWD:pwd];
         [_helper setElianCustomInfo:authcode];
+        [_helper startElian];
         resolve(@"");
     }
     @catch (NSException *exception) {
