@@ -1,6 +1,7 @@
 
 #import "RNSmartconnection.h"
 #import <React/RCTLog.h>
+#import "SmartConnectionHelper.h"
 
 @implementation RNSmartconnection
 
@@ -10,6 +11,8 @@
 }
 
 RCT_EXPORT_MODULE(RNSmartconnection);
+
+SmartConnectionHelper *helper;
 
 RCT_REMAP_METHOD(startConnection,
                  key: (NSString *)key
@@ -21,7 +24,23 @@ RCT_REMAP_METHOD(startConnection,
                  rejecter: (RCTPromiseRejectBlock)reject)
 {
     RCTLogInfo(@"startConnection %@ %@ %zd %f %f", key, target, version, oldInterval, newInterval);
-    resolve(@"1");
+    @try {
+        helper = [[SmartConnectionHelper alloc] init];
+        int proV = 0;
+        int libV = 0;
+        [helper getElianVersion:&proV lib:&libV];
+        RCTLogInfo(@"Smartconfig libVersion: %d protoVersion: %d)", libV, proV);
+        [helper initElian:version];
+        [helper setIntervalElian:oldInterval to:newInterval];
+        [helper startElian];
+        resolve(@"%d", libV);
+    }
+    @catch (NSException *exception) {
+        if (helper != NULL) {
+            [helper stopElian];
+        }
+        reject(exception);
+    }
 }
 
 RCT_REMAP_METHOD(sendConfiguration,
@@ -32,7 +51,18 @@ RCT_REMAP_METHOD(sendConfiguration,
                  rejecter: (RCTPromiseRejectBlock)reject)
 {
     RCTLogInfo(@"sendConfiguration %@ %@ %@", ssid, pwd, authcode);
-    resolve(@"");
+    @try {
+        [helper setElianSSID:ssid];
+        [helper setElianPWD:pwd];
+        [helper setElianCustomInfo:authcode];
+        resolve(@"");
+    }
+    @catch (NSException *exception) {
+        if (helper != NULL) {
+            [helper stopElian];
+        }
+        reject(exception);
+    }
 }
 
 RCT_REMAP_METHOD(stopConnection,
@@ -40,7 +70,13 @@ RCT_REMAP_METHOD(stopConnection,
                  rejecter: (RCTPromiseRejectBlock)reject)
 {
     RCTLogInfo(@"Stop smart connection");
-    resolve(@"");
+    @try {
+        [helper stopElian];
+        resolve(@"");
+    }
+    @catch (NSException *exception) {
+        reject(exception)
+    }
 }
 
 @end

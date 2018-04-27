@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1094B52C2092C4E9006C04C4 /* libSmartConnection.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1094B52B2092C4E9006C04C4 /* libSmartConnection.a */; };
+		1094B5302092C56D006C04C4 /* SmartConnectionHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1094B52D2092C56D006C04C4 /* SmartConnectionHelper.mm */; };
 		B3E7B58A1CC2AC0600A0062D /* RNSmartconnection.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E7B5891CC2AC0600A0062D /* RNSmartconnection.m */; };
 /* End PBXBuildFile section */
 
@@ -23,6 +25,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1094B52B2092C4E9006C04C4 /* libSmartConnection.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSmartConnection.a; path = lib/libSmartConnection.a; sourceTree = "<group>"; };
+		1094B52D2092C56D006C04C4 /* SmartConnectionHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SmartConnectionHelper.mm; sourceTree = "<group>"; };
+		1094B52E2092C56D006C04C4 /* elian.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = elian.h; sourceTree = "<group>"; };
+		1094B52F2092C56D006C04C4 /* SmartConnectionHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmartConnectionHelper.h; sourceTree = "<group>"; };
 		134814201AA4EA6300B7C361 /* libRNSmartconnection.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNSmartconnection.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3E7B5881CC2AC0600A0062D /* RNSmartconnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNSmartconnection.h; sourceTree = "<group>"; };
 		B3E7B5891CC2AC0600A0062D /* RNSmartconnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNSmartconnection.m; sourceTree = "<group>"; };
@@ -33,12 +39,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1094B52C2092C4E9006C04C4 /* libSmartConnection.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1094B52A2092C4E9006C04C4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1094B52B2092C4E9006C04C4 /* libSmartConnection.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		134814211AA4EA7D00B7C361 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -50,9 +65,13 @@
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
+				1094B52E2092C56D006C04C4 /* elian.h */,
+				1094B52F2092C56D006C04C4 /* SmartConnectionHelper.h */,
+				1094B52D2092C56D006C04C4 /* SmartConnectionHelper.mm */,
 				B3E7B5881CC2AC0600A0062D /* RNSmartconnection.h */,
 				B3E7B5891CC2AC0600A0062D /* RNSmartconnection.m */,
 				134814211AA4EA7D00B7C361 /* Products */,
+				1094B52A2092C4E9006C04C4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -113,6 +132,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B3E7B58A1CC2AC0600A0062D /* RNSmartconnection.m in Sources */,
+				1094B5302092C56D006C04C4 /* SmartConnectionHelper.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -204,12 +224,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				HEADER_SEARCH_PATHS = (
-				"$(inherited)",
+					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../../../React/**",
 					"$(SRCROOT)/../../react-native/React/**",
 				);
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/lib",
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = RNSmartconnection;
 				SKIP_INSTALL = YES;
@@ -225,7 +248,10 @@
 					"$(SRCROOT)/../../../React/**",
 					"$(SRCROOT)/../../react-native/React/**",
 				);
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/lib",
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = RNSmartconnection;
 				SKIP_INSTALL = YES;
