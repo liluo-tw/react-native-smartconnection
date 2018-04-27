@@ -11,19 +11,21 @@
 
 RCT_EXPORT_MODULE(RNSmartconnection);
 
-RCT_EXPORT_METHOD(startConnection: (NSString *)key
+RCT_REMAP_METHOD(startConnection,
+                 key: (NSString *)key
                  target: (NSString *)target
-                 version: (NSNumber *)version
+                 version: (NSInteger)version
                  oldInterval: (float)oldInterval
                  newInterval: (float)newInterval
                  resolver: (RCTPromiseResolveBlock)resolve
                  rejecter: (RCTPromiseRejectBlock)reject)
 {
-    RCTLogInfo(@"startConnection %@ %@ %d %f %f", key, target, version, oldInterval, newInterval);
-    resolve([NSNumber numberWithInt:1]);
+    RCTLogInfo(@"startConnection %@ %@ %zd %f %f", key, target, version, oldInterval, newInterval);
+    resolve(@"1");
 }
 
-RCT_EXPORT_METHOD(sendConfiguration: (NSString *)ssid
+RCT_REMAP_METHOD(sendConfiguration,
+                 ssid: (NSString *)ssid
                  pwd: (NSString *)pwd
                  authcode: (NSString *)authcode
                  resolver: (RCTPromiseResolveBlock)resolve
@@ -33,7 +35,8 @@ RCT_EXPORT_METHOD(sendConfiguration: (NSString *)ssid
     resolve(@"");
 }
 
-RCT_EXPORT_METHOD(stopConnection: (RCTPromiseResolveBlock)resolve
+RCT_REMAP_METHOD(stopConnection,
+                 resolver: (RCTPromiseResolveBlock)resolve
                  rejecter: (RCTPromiseRejectBlock)reject)
 {
     RCTLogInfo(@"Stop smart connection");
