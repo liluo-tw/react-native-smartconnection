@@ -2,6 +2,8 @@
 #import "RNSmartconnection.h"
 #import <React/RCTLog.h>
 
+@import SystemConfiguration.CaptiveNetwork;
+
 @implementation RNSmartconnection
 
 - (dispatch_queue_t)methodQueue
@@ -83,6 +85,44 @@ RCT_REMAP_METHOD(stopConnection,
         NSString *errorCode = [data objectForKey:@"code"];
         reject(errorCode, msg, nil);
     }
+}
+
+RCT_EXPORT_METHOD(getSSID:(RCTResponseSenderBlock)callback)
+{
+    NSString *ssid = @"";
+    CFArrayRef array = CNCopySupportedInterfaces();
+    if (array != nil) {
+        CFDictionaryRef networkDetails = CNCopyCurrentNetworkInfo((CFStringRef)CFArrayGetValueAtIndex(array, 0));
+        if (networkDetails != nil) {
+            NSDictionary *infoDic = (NSDictionary *)CFBridgingRelease(networkDetails);
+            ssid = [infoDic valueForKey:(NSString *)kCNNetworkInfoKeySSID];
+            CFRelease(networkDetails);
+        } else {
+            RCTLogInfo(@"surplus :: bridging release dictionary is nil");
+        }
+    } else {
+        RCTLogInfo(@"surplus supported interfaces is nil");
+    }
+    callback(@[ssid]);
+}
+
+RCT_EXPORT_METHOD(getBSSID:(RCTResponseSenderBlock)callback)
+{
+    NSString *bssid = @"";
+    CFArrayRef array = CNCopySupportedInterfaces();
+    if (array != nil) {
+        CFDictionaryRef networkDetails = CNCopyCurrentNetworkInfo((CFStringRef)CFArrayGetValueAtIndex(array, 0));
+        if (networkDetails != nil) {
+            NSDictionary *infoDic = (NSDictionary *)CFBridgingRelease(networkDetails);
+            bssid = [infoDic valueForKey:(NSString *)kCNNetworkInfoKeyBSSID];
+            CFRelease(networkDetails);
+        } else {
+            RCTLogInfo(@"surplus :: bridging release dictionary is nil");
+        }
+    } else {
+        RCTLogInfo(@"surplus supported interfaces is nil");
+    }
+    callback(@[bssid]);
 }
 
 @end
