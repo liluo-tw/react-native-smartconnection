@@ -87,38 +87,50 @@ RCT_REMAP_METHOD(stopConnection,
     }
 }
 
-RCT_EXPORT_METHOD(getSSID:(RCTResponseSenderBlock)callback)
+RCT_REMAP_METHOD(getSSID,
+                 getSSIDWithResolver:(RCTPromiseResolveBlock)resolve
+                 getSSIDWithRejecter:(RCTPromiseRejectBlock)reject)
 {
-    NSString *ssid = @"";
     CFArrayRef array = CNCopySupportedInterfaces();
     if (array != nil) {
         CFDictionaryRef networkDetails = CNCopyCurrentNetworkInfo((CFStringRef)CFArrayGetValueAtIndex(array, 0));
         if (networkDetails != nil) {
-            ssid = (NSString *)CFDictionaryGetValue (networkDetails, kCNNetworkInfoKeySSID);
+            NSString *ssid = (NSString *)CFDictionaryGetValue (networkDetails, kCNNetworkInfoKeySSID);
+            RCTLogInfo(@"getSSID: %@", ssid);
+            resolve(ssid);
         } else {
             RCTLogInfo(@"getSSID failed, bridging release dictionary is nil");
+            NSError *error = [NSError errorWithDomain:@"getSSID" code:0 userInfo:nil];
+            reject(@"getSSID", @"Bridging release dictionary is nil", error);
         }
     } else {
         RCTLogInfo(@"getSSID failed, supported interfaces is nil");
+        NSError *error = [NSError errorWithDomain:@"getSSID" code:0 userInfo:nil];
+        reject(@"getSSID", @"Supported interfaces is nil", error);
     }
-    callback(@[ssid]);
 }
 
-RCT_EXPORT_METHOD(getBSSID:(RCTResponseSenderBlock)callback)
+RCT_REMAP_METHOD(getBSSID,
+                 getBSSIDWithResolver: (RCTPromiseResolveBlock)resolve
+                 getBSSIDWithRejecter: (RCTPromiseRejectBlock)reject)
 {
-    NSString *bssid = @"";
     CFArrayRef array = CNCopySupportedInterfaces();
     if (array != nil) {
         CFDictionaryRef networkDetails = CNCopyCurrentNetworkInfo((CFStringRef)CFArrayGetValueAtIndex(array, 0));
         if (networkDetails != nil) {
-            bssid = (NSString *)CFDictionaryGetValue (networkDetails, kCNNetworkInfoKeyBSSID);
+            NSString *bssid = (NSString *)CFDictionaryGetValue (networkDetails, kCNNetworkInfoKeyBSSID);
+            RCTLogInfo(@"getBSSID: %@", bssid);
+            resolve(bssid);
         } else {
             RCTLogInfo(@"getBSSID failed, bridging release dictionary is nil");
+            NSError *error = [NSError errorWithDomain:@"getBSSID" code:0 userInfo:nil];
+            reject(@"getBSSID", @"Bridging release dictionary is nil", error);
         }
     } else {
         RCTLogInfo(@"getBSSID failed, supported interfaces is nil");
+        NSError *error = [NSError errorWithDomain:@"getBSSID" code:0 userInfo:nil];
+        reject(@"getBSSID", @"supported interfaces is nil", error);
     }
-    callback(@[bssid]);
 }
 
 @end
