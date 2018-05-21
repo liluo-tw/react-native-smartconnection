@@ -69,23 +69,25 @@ public class RNSmartconnectionModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void getSSID(final Callback callback) {
+  public void getSSID(Promise promise) {
     WifiInfo info = wifiManager.getConnectionInfo();
-    String ssid = "";
     if (!info.getSSID().isEmpty()) {
       String name = info.getSSID();
-      ssid = name.substring(1, name.length() - 1);
+      String ssid = name.substring(1, name.length() - 1);
+      promise.resolve(ssid);
+    } else {
+      promise.reject("getSSID", "get SSID failed");
     }
-    callback.invoke(ssid);
   }
 
   @ReactMethod
-  public void getBSSID(final Callback callback) {
+  public void getBSSID(Promise promise) {
     WifiInfo info = wifiManager.getConnectionInfo();
-    String bssid = "";
     if (!info.getBSSID().isEmpty()) {
-      bssid = info.getBSSID();
+      String bssid = info.getBSSID();
+      promise.resolve(bssid);
+    } else {
+      promise.reject("getBSSID", "get BSSID failed");
     }
-    callback.invoke(bssid);
   }
 }
