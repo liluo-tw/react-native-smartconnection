@@ -1,6 +1,6 @@
 {
   "name": "react-native-smartconnection",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "SmartConfig for mtk chips. With LinkIt_SDK_V4.6.1_public sdk android added.",
   "main": "index.js",
   "scripts": {
