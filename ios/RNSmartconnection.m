@@ -94,14 +94,12 @@ RCT_EXPORT_METHOD(getSSID:(RCTResponseSenderBlock)callback)
     if (array != nil) {
         CFDictionaryRef networkDetails = CNCopyCurrentNetworkInfo((CFStringRef)CFArrayGetValueAtIndex(array, 0));
         if (networkDetails != nil) {
-            NSDictionary *infoDic = (NSDictionary *)CFBridgingRelease(networkDetails);
-            ssid = [infoDic valueForKey:(NSString *)kCNNetworkInfoKeySSID];
-            CFRelease(networkDetails);
+            ssid = (NSString *)CFDictionaryGetValue (networkDetails, kCNNetworkInfoKeySSID);
         } else {
-            RCTLogInfo(@"surplus :: bridging release dictionary is nil");
+            RCTLogInfo(@"getSSID failed, bridging release dictionary is nil");
         }
     } else {
-        RCTLogInfo(@"surplus supported interfaces is nil");
+        RCTLogInfo(@"getSSID failed, supported interfaces is nil");
     }
     callback(@[ssid]);
 }
@@ -113,14 +111,12 @@ RCT_EXPORT_METHOD(getBSSID:(RCTResponseSenderBlock)callback)
     if (array != nil) {
         CFDictionaryRef networkDetails = CNCopyCurrentNetworkInfo((CFStringRef)CFArrayGetValueAtIndex(array, 0));
         if (networkDetails != nil) {
-            NSDictionary *infoDic = (NSDictionary *)CFBridgingRelease(networkDetails);
-            bssid = [infoDic valueForKey:(NSString *)kCNNetworkInfoKeyBSSID];
-            CFRelease(networkDetails);
+            bssid = (NSString *)CFDictionaryGetValue (networkDetails, kCNNetworkInfoKeyBSSID);
         } else {
-            RCTLogInfo(@"surplus :: bridging release dictionary is nil");
+            RCTLogInfo(@"getBSSID failed, bridging release dictionary is nil");
         }
     } else {
-        RCTLogInfo(@"surplus supported interfaces is nil");
+        RCTLogInfo(@"getBSSID failed, supported interfaces is nil");
     }
     callback(@[bssid]);
 }
