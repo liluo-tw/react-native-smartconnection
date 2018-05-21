@@ -1,6 +1,9 @@
 
 package com.luoli.smartconnection;
 
+import android.content.Context;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.util.Log;
 
 import com.facebook.react.bridge.Promise;
@@ -11,10 +14,13 @@ import com.facebook.react.bridge.ReactMethod;
 public class RNSmartconnectionModule extends ReactContextBaseJavaModule {
 
   private final ReactApplicationContext reactContext;
+  private final WifiManager wifiManager;
 
   public RNSmartconnectionModule(ReactApplicationContext reactContext) {
     super(reactContext);
     this.reactContext = reactContext;
+    this.wifiManager = (WifiManager) reactContext.getApplicationContext()
+            .getSystemService(Context.WIFI_SERVICE);
   }
 
   @Override
@@ -60,5 +66,26 @@ public class RNSmartconnectionModule extends ReactContextBaseJavaModule {
       promise.reject(e);
     }
 
+  }
+
+  @ReactMethod
+  public void getSSID(final Callback callback) {
+    WifiInfo info = wifiManager.getConnectionInfo();
+    String ssid = "";
+    if (!info.getSSID().isEmpty()) {
+      String name = info.getSSID();
+      ssid = name.substring(1, name.length() - 1);
+    }
+    callback.invoke(ssid);
+  }
+
+  @ReactMethod
+  public void getBSSID(final Callback callback) {
+    WifiInfo info = wifiManager.getConnectionInfo();
+    String bssid = "";
+    if (!info.getBSSID().isEmpty()) {
+      bssid = info.getBSSID();
+    }
+    callback.invoke(bssid);
   }
 }
