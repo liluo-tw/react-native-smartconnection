@@ -36,15 +36,6 @@ Smart Config for mtk elian. With LinkIt_SDK_V4.6.1_public sdk android added.
       compile project(':react-native-smartconnection')
   	```
 
-#### Windows
-[Read it! :D](https://github.com/ReactWindows/react-native)
-
-1. In Visual Studio add the `RNSmartconnection.sln` in `node_modules/react-native-smartconnection/windows/RNSmartconnection.sln` folder to their solution, reference from their app.
-2. Open up your `MainPage.cs` app
-  - Add `using Smartconnection.RNSmartconnection;` to the usings at the top of the file
-  - Add `new RNSmartconnectionPackage()` to the `List<IReactPackage>` returned by the `Packages` method
-
-
 ## Usage
 ```javascript
 import RNSmartconnection from 'react-native-smartconnection';
