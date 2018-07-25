@@ -1,7 +1,7 @@
 
 # react-native-smartconnection
 
-Smart Config for mtk elian. With LinkIt_SDK_V4.6.1_public sdk android added.
+Smart Config for mtk elian. With LinkIt_SDK_V4.6.1_public sdk integrated.
 
 ## Getting started
 
